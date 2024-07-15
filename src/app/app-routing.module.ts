@@ -18,6 +18,7 @@ const routes: Routes = [
     path: `${EnumRoutes.WEATHER}/:weatherOption`,
     component: WeatherComponent,
   },
+  { path: '**', redirectTo: `/${EnumRoutes.HOME}`, pathMatch: 'full' },
 ];
 
 @NgModule({
