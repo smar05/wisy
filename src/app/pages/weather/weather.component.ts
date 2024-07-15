@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnumRoutes } from 'src/app/enums/enums-routes';
 import { EnumWeatherOptions } from 'src/app/enums/enums-weather-options';
-import { HttpService } from 'src/app/services/http.service';
+import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-weather',
@@ -15,7 +15,7 @@ export class WeatherComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpService
+    private weatherService: WeatherService
   ) {}
 
   public ngOnInit(): void {
@@ -45,10 +45,8 @@ export class WeatherComponent implements OnInit {
   }
 
   private queryWeatherData(): void {
-    this.http
-      .get(
-        `https://api.weather.gov/gridpoints/${this.weatherOption}/31,80/forecast`
-      )
+    this.weatherService
+      .getWeatherForecast(this.weatherOption.toUpperCase())
       .subscribe((res) => {
         console.log('🚀 ~ WeatherComponent ~ this.http.get ~ res:', res);
       });
