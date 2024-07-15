@@ -1,1 +1,17 @@
-<p>weather works!</p>
+<div class="m-0 vh-100 row justify-content-center align-items-center">
+  <div class="card border-primary mb-3" style="width: 80%">
+    <div class="card-header">{{ this.title }}</div>
+    <div class="card-body">
+      <div>
+        <canvas id="canvas"></canvas>
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary btn-lg mt-2"
+        [routerLink]="'/home'"
+      >
+        Back
+      </button>
+    </div>
+  </div>
+</div>

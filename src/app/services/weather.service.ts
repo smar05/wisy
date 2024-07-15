@@ -26,7 +26,7 @@ export class WeatherService {
     return this.http.get(url).pipe(
       map((response: any) =>
         response.properties.periods.map((period: any) => ({
-          time: period.startTime,
+          name: period.name,
           temperature: period.temperature,
         }))
       )
