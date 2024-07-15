@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnumRoutes } from 'src/app/enums/enums-routes';
 import { EnumWeatherOptions } from 'src/app/enums/enums-weather-options';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-weather',
@@ -11,10 +12,15 @@ import { EnumWeatherOptions } from 'src/app/enums/enums-weather-options';
 export class WeatherComponent implements OnInit {
   public weatherOption: string = null as any;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpService
+  ) {}
 
   public ngOnInit(): void {
     this.getUrlParam();
+    this.queryWeatherData();
   }
 
   /**
@@ -36,5 +42,15 @@ export class WeatherComponent implements OnInit {
         this.router.navigate([`/${EnumRoutes.HOME}`]);
       }
     });
+  }
+
+  private queryWeatherData(): void {
+    this.http
+      .get(
+        `https://api.weather.gov/gridpoints/${this.weatherOption}/31,80/forecast`
+      )
+      .subscribe((res) => {
+        console.log('🚀 ~ WeatherComponent ~ this.http.get ~ res:', res);
+      });
   }
 }
